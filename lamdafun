@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class lamdafun {
+    
+    // Functional interface
+    interface PerformOperation {
+        boolean check(int num);
+    }
+
+    // Method to return lambda for checking odd/even
+    public static PerformOperation isOdd() {
+        return (num) -> num % 2 != 0;
+    }
+
+    // Method to return lambda for checking prime
+    public static PerformOperation isPrime() {
+        return (num) -> {
+            if (num <= 1) return false;
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) return false;
+            }
+            return true;
+        };
+    }
+
+    // Method to return lambda for checking palindrome
+    public static PerformOperation isPalindrome() {
+        return (num) -> {
+            String str = Integer.toString(num);
+            return str.equals(new StringBuilder(str).reverse().toString());
+        };
+    }
+
+    // Method to execute the operation
+    public static boolean executeOperation(PerformOperation op, int num) {
+        return op.check(num);
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int testCases = Integer.parseInt(br.readLine());
+        
+        while (testCases-- > 0) {
+            String[] input = br.readLine().split(" ");
+            int condition = Integer.parseInt(input[0]);
+            int num = Integer.parseInt(input[1]);
+            
+            PerformOperation op;
+            boolean result;
+            
+            switch (condition) {
+                case 1:
+                    op = isOdd();
+                    result = executeOperation(op, num);
+                    System.out.println(result ? "ODD" : "EVEN");
+                    break;
+                case 2:
+                    op = isPrime();
+                    result = executeOperation(op, num);
+                    System.out.println(result ? "PRIME" : "COMPOSITE");
+                    break;
+                case 3:
+                    op = isPalindrome();
+                    result = executeOperation(op, num);
+                    System.out.println(result ? "PALINDROME" : "NOT PALINDROME");
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
