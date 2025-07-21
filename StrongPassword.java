@@ -100,7 +100,7 @@ class Result {
             icnt++;
         if(!password.matches(".*[0-9].*"))
             icnt++;
-        if(!password.matches(".*[!@#$%^&*()-+].*"))    
+        if(!password.matches(".*[!@#$%^&*()\\-+].*"))    
             icnt++;
         
         if (n < 6)
